@@ -1,8 +1,11 @@
-import { BaseScreen } from '@/core/base-screen/base-screen'
+import { BaseScreen } from '@/core/component/base-screen.component'
 
 export class Auth extends BaseScreen {
+	constructor() {
+		super({ title: 'Auth' })
+	}
+
 	render() {
-		this.getTitle('Auth')
 		return `<p>Auth</p>`
 	}
 }
