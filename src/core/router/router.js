@@ -1,3 +1,5 @@
+import { $R } from '@/core/rquery/rquery.lib'
+
 import { Layout } from '@/components/layout/layout.component'
 import { NotFound } from '@/components/screens/not-found/not-found.component'
 
@@ -55,16 +57,17 @@ export class Router {
 	}
 
 	#render() {
-		const component = new this.#currentRouter.component()
+		const component = new this.#currentRouter.component().render()
 
 		if (!this.#layout) {
 			this.#layout = new Layout({
 				router: this,
-				children: component.render()
-			})
-			document.getElementById('app').innerHTML = this.#layout.render()
+				children: component
+			}).render()
+
+			$R('#app').append(this.#layout)
 		} else {
-			document.querySelector('main').innerHTML = component.render()
+			$R('#content').html('').append(component)
 		}
 	}
 }
