@@ -1,3 +1,5 @@
+import { formatCardNumberWithDashed } from '@/utils/format/format-card-number'
+
 class RQuery {
 	constructor(selector) {
 		if (typeof selector === 'string') {
@@ -52,12 +54,86 @@ class RQuery {
 		}
 	}
 
+	click(callback) {
+		this.element.addEventListener('click', callback)
+		return this
+	}
+
+	input({ onInput, ...rest }) {
+		if (this.element.tagName.toLowerCase() !== 'input')
+			throw new Error('Element must be an input')
+
+		for (const [key, value] of Object.entries(rest)) {
+			this.element.setAttribute(key, value)
+		}
+
+		if (onInput) this.element.addEventListener('input', onInput)
+
+		return this
+	}
+
+	numberInput(limit) {
+		if (
+			this.element.tagName.toLowerCase() !== 'input' ||
+			this.element.type !== 'number'
+		)
+			throw new Error('Element must be an input with type "number"')
+
+		this.element.addEventListener('input', event => {
+			let value = event.target.value.replace(/[^0-9]/g, '')
+			if (limit) value = value.substring(0, limit)
+			event.target.value = value
+		})
+
+		return this
+	}
+
+	creditCardInput() {
+		const limit = 16
+
+		if (
+			this.element.tagName.toLowerCase() !== 'input' ||
+			this.element.type !== 'text'
+		)
+			throw new Error('Element must be an input with type "text"')
+
+		this.element.addEventListener('input', event => {
+			let value = event.target.value.replace(/[^0-9]/g, '')
+			if (limit) value = value.substring(0, limit)
+			event.target.value = formatCardNumberWithDashed(value)
+		})
+
+		return this
+	}
+
 	css(property, value) {
 		if (typeof property !== 'string' || typeof value !== 'string') {
 			throw new Error('property and value must be strings')
 		}
 
 		this.element.style[property] = value
+		return this
+	}
+
+	addClass(classNames) {
+		if (Array.isArray(classNames)) {
+			for (const className of classNames) {
+				this.element.classList.add(className)
+			}
+		} else {
+			this.element.classList.add(classNames)
+		}
+		return this
+	}
+
+	removeClass(classNames) {
+		if (Array.isArray(classNames)) {
+			for (const className of classNames) {
+				this.element.classList.remove(className)
+			}
+		} else {
+			this.element.classList.remove(classNames)
+		}
 		return this
 	}
 }
