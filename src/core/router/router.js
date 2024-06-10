@@ -1,13 +1,13 @@
-import { $R } from '@/core/rquery/rquery.lib'
-
 import { Layout } from '@/components/layout/layout.component'
 import { NotFound } from '@/components/screens/not-found/not-found.component'
+
+import { $R } from '../rquery/rquery.lib'
 
 import { ROUTES } from './routes.data'
 
 export class Router {
-	#routers = ROUTES
-	#currentRouter = null
+	#routes = ROUTES
+	#currentRoute = null
 	#layout = null
 
 	constructor() {
@@ -43,21 +43,20 @@ export class Router {
 
 	#handleRouteChange() {
 		const path = this.getCurrentPath() || '/'
-		let route = this.#routers.find(route => route.path === path)
+		let route = this.#routes.find(route => route.path === path)
 
 		if (!route) {
 			route = {
-				path: '404',
 				component: NotFound
 			}
 		}
 
-		this.#currentRouter = route
+		this.#currentRoute = route
 		this.#render()
 	}
 
 	#render() {
-		const component = new this.#currentRouter.component().render()
+		const component = new this.#currentRoute.component().render()
 
 		if (!this.#layout) {
 			this.#layout = new Layout({

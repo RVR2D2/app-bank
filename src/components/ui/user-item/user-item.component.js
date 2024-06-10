@@ -1,4 +1,4 @@
-import { ChildComponent } from '@/core/component/child.component'
+import ChildComponent from '@/core/component/child.component'
 import { $R } from '@/core/rquery/rquery.lib'
 import renderService from '@/core/services/render.service'
 
@@ -10,16 +10,16 @@ export class UserItem extends ChildComponent {
 		super()
 
 		if (!user) throw new Error('User should be passed!')
-		if (!user?.name) throw new Error('User mast have a "name"!')
-		if (!user?.avatarPath) throw new Error('User mast have a "avatarPath"!')
+		if (!user?.name) throw new Error('User must have a "name"!')
+		if (!user?.avatarPath) throw new Error('User must have a "avatarPath"!')
 
 		this.user = user
 		this.onClick = onClick
 		this.isGray = isGray
 	}
 
-	#preventDefault(e) {
-		e.preventDefault()
+	#preventDefault(event) {
+		event.preventDefault()
 	}
 
 	update({ avatarPath, name }) {

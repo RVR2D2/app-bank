@@ -1,6 +1,12 @@
-import { ChildComponent } from '../component/child.component'
+import ChildComponent from '../component/child.component'
 
 class RenderService {
+	/**
+	 * @param {string} html
+	 * @param {Array} components
+	 * @param {Object} [styles]
+	 * @returns {HTMLElement}
+	 */
 	htmlToElement(html, components = [], styles) {
 		const template = document.createElement('template')
 		template.innerHTML = html.trim()
@@ -16,6 +22,10 @@ class RenderService {
 		return element
 	}
 
+	/**
+	 * @param {HTMLElement} parentElement
+	 * @param {Array} components
+	 */
 	#replaceComponentTags(parentElement, components) {
 		const componentTagPattern = /^component-/
 		const allElements = parentElement.getElementsByTagName('*')
@@ -42,13 +52,18 @@ class RenderService {
 					element.replaceWith(componentContent)
 				} else {
 					console.error(
-						`Component "${componentName}" not found in the provided components array`
+						`Component "${componentName}" not found in the provided components array.`
 					)
 				}
 			}
 		}
 	}
 
+	/**
+	 * @param {Object} moduleStyles
+	 * @param {string} element
+	 * @returns {void}
+	 */
 	#applyModuleStyles(moduleStyles, element) {
 		if (!element) return
 
@@ -71,3 +86,12 @@ class RenderService {
 }
 
 export default new RenderService()
+
+{
+	/* <div class='home'>
+	<h1 class='text'></h1>
+	<component-heading></component-heading>
+	<component-card-info></component-card-info>
+</div>
+ */
+}
