@@ -54,6 +54,15 @@ class RQuery {
 		}
 	}
 
+	text(textContent) {
+		if (typeof textContent === 'undefined') {
+			return this.element.textContent
+		} else {
+			this.element.textContent = textContent
+			return this
+		}
+	}
+
 	click(callback) {
 		this.element.addEventListener('click', callback)
 		return this
@@ -135,6 +144,19 @@ class RQuery {
 			this.element.classList.remove(classNames)
 		}
 		return this
+	}
+
+	attr(attributeName, value) {
+		if (typeof attributeName !== 'string') {
+			throw new Error('attributeName must be a string')
+		}
+
+		if (typeof value === 'undefined') {
+			return this.element.getAttribute(attributeName)
+		} else {
+			this.element.setAttribute(attributeName, value)
+			return this
+		}
 	}
 }
 
