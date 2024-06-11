@@ -1,13 +1,13 @@
 {
-	"name": "js-app-bank",
+	"name": "bank-js",
 	"version": "1.0.0",
-	"description": "",
+	"description": "Project for vadim",
 	"main": "webpack.config.js",
 	"scripts": {
 		"dev": "webpack serve --mode development --open",
 		"build": "webpack --mode production"
 	},
-	"author": "Vadim Redkin",
+	"author": "vadim",
 	"license": "ISC",
 	"devDependencies": {
 		"@babel/core": "^7.21.4",

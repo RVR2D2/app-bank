@@ -1,5 +1,7 @@
 import ChildComponent from '@/core/component/child.component'
+import { $R } from '@/core/rquery/rquery.lib'
 import renderService from '@/core/services/render.service'
+import { Store } from '@/core/store/store'
 
 import { UserItem } from '@/components/ui/user-item/user-item.component'
 
@@ -13,7 +15,24 @@ import { Search } from './search/search.component'
 export class Header extends ChildComponent {
 	constructor({ router }) {
 		super()
+
+		this.store = Store.getInstance()
+		this.store.addObserver(this)
+
 		this.router = router
+	}
+
+	update() {
+		this.user = this.store.state.user
+
+		const authSideElement = $R(this.element).find('#auth-side')
+
+		if (this.user) {
+			authSideElement.show()
+			this.router.navigate('/')
+		} else {
+			authSideElement.hide()
+		}
 	}
 
 	render() {
@@ -27,12 +46,14 @@ export class Header extends ChildComponent {
 				Search,
 				new UserItem({
 					avatarPath:
-						'https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg',
-					name: 'Vadim'
+						'https://prisma-blog-ebon.vercel.app/blog/posts/type-safe_js_with_JsDoc.png',
+					name: 'VADIM'
 				})
 			],
 			styles
 		)
+
+		this.update()
 
 		return this.element
 	}
