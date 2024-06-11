@@ -113,6 +113,19 @@ class RQuery {
 
 	/* FORM */
 
+	submit(onSubmit) {
+		if (this.element.tagName.toLowerCase() === 'form') {
+			this.element.addEventListener('submit', e => {
+				e.preventDefault()
+				onSubmit()
+			})
+		} else {
+			throw new Error('Element must be a form')
+		}
+
+		return this
+	}
+
 	/**
 	 * Set attributes and event listeners for an input element.
 	 * @param {object} options - An object containing input options.
