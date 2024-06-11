@@ -6,7 +6,11 @@ export class UserService {
 	getAll(searchTerm, onSuccess) {
 		return redQuery({
 			path: `${this.#BASE_URL}${
-				searchTerm ? `${new URLSearchParams({ searchTerm })}` : ''
+				searchTerm
+					? `?${new URLSearchParams({
+							searchTerm
+					  })}`
+					: ''
 			}`,
 			onSuccess
 		})

@@ -7,7 +7,6 @@ export class AuthService {
 
 	constructor() {
 		this.store = Store.getInstance()
-
 		this.notificationService = new NotificationService()
 	}
 
@@ -17,7 +16,6 @@ export class AuthService {
 			body,
 			onSuccess: data => {
 				this.store.login(data.user, data.accessToken)
-
 				this.notificationService.show(
 					'success',
 					'You have successfully logged in!'

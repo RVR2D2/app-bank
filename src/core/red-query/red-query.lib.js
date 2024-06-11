@@ -27,9 +27,9 @@ export async function redQuery({
 	onError = null,
 	onSuccess = null
 }) {
-	let isLoading = true
-	let error = null
-	let data = null
+	let isLoading = true,
+		error = null,
+		data = null
 	const url = `${SERVER_URL}/api${path}`
 
 	const accessToken = new StorageService().getItem(ACCESS_TOKEN_KEY)
