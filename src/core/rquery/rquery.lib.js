@@ -140,6 +140,15 @@ class RQuery {
 
 	/* FORM */
 
+	value(newValue) {
+		if (typeof newValue === 'undefined') {
+			return this.element.value
+		} else {
+			this.element.value = newValue
+			return this
+		}
+	}
+
 	/**
 	 * Set an event listener for the submit event of a form element.
 	 * @param {function(Event): void} onSubmit - The event listener for the form's submit event.
@@ -309,6 +318,15 @@ class RQuery {
 			this.element.setAttribute(attributeName, value)
 			return this
 		}
+	}
+
+	removeAttr(attrName) {
+		if (typeof attrName !== 'string') {
+			throw new Error('attrName name must be a string')
+		}
+
+		this.element.removeAttribute(attrName)
+		return this
 	}
 }
 
