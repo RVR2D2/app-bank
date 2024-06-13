@@ -25,7 +25,6 @@ import {
 export class Contacts extends ChildComponent {
 	constructor() {
 		super()
-
 		this.store = Store.getInstance().state
 		this.userService = new UserService()
 	}
@@ -69,7 +68,7 @@ export class Contacts extends ChildComponent {
 				.find('#contacts-list')
 				.html(new Loader().render().outerHTML)
 
-			this.fetchData()
+			setTimeout(() => this.fetchData(), 500)
 		}
 
 		return this.element

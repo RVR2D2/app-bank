@@ -20,7 +20,6 @@ import { TRANSACTION_COMPLETED } from '@/constants/event.constants'
 export class Transactions extends ChildComponent {
 	constructor() {
 		super()
-
 		this.store = Store.getInstance().state
 		this.transactionService = new TransactionService()
 
@@ -29,19 +28,20 @@ export class Transactions extends ChildComponent {
 			[new Heading('Recent transactions')],
 			styles
 		)
-
 		this.#addListeners()
 	}
 
 	#addListeners() {
-		document.addEventListener(TRANSACTION_COMPLETED, () =>
-			this.#onTransactionCompleted()
+		document.addEventListener(
+			TRANSACTION_COMPLETED,
+			this.#onTransactionCompleted
 		)
 	}
 
 	#removeListeners() {
-		document.removeEventListener(TRANSACTION_COMPLETED, () =>
-			this.#onTransactionCompleted()
+		document.removeEventListener(
+			TRANSACTION_COMPLETED,
+			this.#onTransactionCompleted
 		)
 	}
 
@@ -74,11 +74,9 @@ export class Transactions extends ChildComponent {
 	}
 
 	render() {
-		this.element = renderService.htmlToElement(template, [], styles)
-
 		if (this.store.user) {
 			$R(this.element).append(new Loader().render())
-			this.fetchData()
+			setTimeout(() => this.fetchData(), 500)
 		}
 
 		return this.element

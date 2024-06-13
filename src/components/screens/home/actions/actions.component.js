@@ -13,7 +13,7 @@ import { CardService } from '@/api/card.service'
 import styles from './actions.module.scss'
 import template from './actions.template.html'
 
-import { BALANCE_UPDATE } from '@/constants/event.constants'
+import { BALANCE_UPDATED } from '@/constants/event.constants'
 
 export class Actions extends ChildComponent {
 	constructor() {
@@ -24,6 +24,10 @@ export class Actions extends ChildComponent {
 		this.notificationService = new NotificationService()
 	}
 
+	/**
+	 * @param {Event} event - The event object from the button click event.
+	 * @param {'top-up' | 'withdrawal'} type - The type of the transaction, either "top-up" or "withdrawal".
+	 */
 	updateBalance(event, type) {
 		event.preventDefault()
 
@@ -44,8 +48,8 @@ export class Actions extends ChildComponent {
 		this.cardService.updateBalance(amount, type, () => {
 			inputElement.value('')
 
-			const balanceUpdateEvent = new Event(BALANCE_UPDATE)
-			document.dispatchEvent(balanceUpdateEvent)
+			const balanceUpdatedEvent = new Event(BALANCE_UPDATED)
+			document.dispatchEvent(balanceUpdatedEvent)
 		})
 
 		$R(event.target).removeAttr('disabled').text(type)

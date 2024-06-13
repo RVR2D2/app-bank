@@ -14,7 +14,7 @@ import styles from './transfer-field.module.scss'
 import template from './transfer-field.template.html'
 
 import {
-	BALANCE_UPDATE,
+	BALANCE_UPDATED,
 	TRANSACTION_COMPLETED
 } from '@/constants/event.constants'
 
@@ -33,7 +33,7 @@ export class TransferField extends ChildComponent {
 		event.preventDefault()
 
 		if (!this.store.user) {
-			this.notificationService.show('error', 'You need Authorization!')
+			this.notificationService.show('error', 'You need authorization!')
 		}
 
 		$R(event.target).text('Sending...').attr('disabled', true)
@@ -58,7 +58,7 @@ export class TransferField extends ChildComponent {
 			amount = ''
 
 			document.dispatchEvent(new Event(TRANSACTION_COMPLETED))
-			document.dispatchEvent(new Event(BALANCE_UPDATE))
+			document.dispatchEvent(new Event(BALANCE_UPDATED))
 		})
 
 		reset()
